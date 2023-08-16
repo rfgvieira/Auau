@@ -2,10 +2,14 @@ package com.rfgvieira.auau.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+//Light Theme
+val LightGreen = Color(0xFF2D6A4E)
+val LightGray = Color(0xFF516258)
+val LightBlue = Color(0xFF466271)
+val LightBack = Color(0xFFFBFDF9)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+//Dark Theme
+val DarkGreen = Color(0xFF89D8AF)
+val DarkGray = Color(0xFFB8CBBF)
+val DarkBlue = Color(0xFFADCBDD)
+val DarkBack = Color(0xFF1A1C1A)
