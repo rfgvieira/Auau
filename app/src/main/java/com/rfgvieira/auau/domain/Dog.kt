@@ -1,4 +1,4 @@
-package com.rfgvieira.auau
+package com.rfgvieira.auau.domain
 
 data class Dog(
     var name : String,

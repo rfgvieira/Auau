@@ -1,4 +1,6 @@
-package com.rfgvieira.auau
+package com.rfgvieira.auau.domain
+
+import com.rfgvieira.auau.R
 
 class Dogs {
     companion object {
