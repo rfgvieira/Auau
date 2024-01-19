@@ -4,10 +4,15 @@ import com.rfgvieira.auau.R
 
 class Dogs {
     companion object {
+        private val result = ArrayList<Dog>()
         fun dogsList(): List<Dog> {
+            if (result.isEmpty()) {
+                initializeResult()
+            }
+            return result
+        }
 
-
-            val result = ArrayList<Dog>()
+        private fun initializeResult() {
             val dog1 = Dog("Poe", "20/12/2020", R.drawable.pug, "Meat")
             val dog2 = Dog("Joe", "01/06/2017", R.drawable.dog1, "Dog food")
             val dog3 = Dog("Fluffy", "28/09/2001", R.drawable.dog2, "Dog food")
@@ -33,8 +38,10 @@ class Dogs {
             result.add(dog10)
             result.add(dog11)
             result.add(dog12)
+        }
 
-            return result
+        fun addNewDog(newDog : Dog){
+            result.add(newDog)
         }
     }
 }

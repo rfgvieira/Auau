@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -51,7 +52,7 @@ fun DogCard(modifier: Modifier, dog: Dog) {
             )
     ) {
 
-        Row(Modifier.padding(dimensionResource(id = R.dimen.padding_mediumsmall))) {
+        Row(Modifier.padding(dimensionResource(id = R.dimen.padding_mediumsmall)).clickable { expandable = !expandable }) {
             Image(
                 painter = painterResource(id = dog.img),
                 contentDescription = "pug",
@@ -81,10 +82,10 @@ fun DogCard(modifier: Modifier, dog: Dog) {
 }
 
 @Composable
-fun DogInfo(dog : Dog) {
+fun DogInfo(dog: Dog) {
     Column(Modifier.padding(start = 16.dp)) {
         Text(text = dog.name, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-        Text(text = dog.birth.toYear() + " years old" , fontSize = 16.sp)
+        Text(text = dog.birth.toYear() + " years old", fontSize = 16.sp)
     }
 }
 
@@ -98,6 +99,7 @@ fun DogFood(
         Text(text = dogFood, fontSize = 12.sp)
     }
 }
+
 @Composable
 fun DogCardButton(expanded: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) {
     IconButton(onClick = onClick, modifier = modifier) {
