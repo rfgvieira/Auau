@@ -20,7 +20,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.unit.dp
-import com.rfgvieira.auau.DateUtils.Companion.toDateFormat
+import com.rfgvieira.auau.utils.DateUtils.Companion.toDateFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,11 +32,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rfgvieira.auau.DateUtils.Companion.toYear
 import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.Dog
+import com.rfgvieira.auau.utils.DateUtils.Companion.toYear
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DogCard(modifier: Modifier, dog: Dog) {
     var expandable by remember { mutableStateOf(false) }
