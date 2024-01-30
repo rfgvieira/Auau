@@ -30,14 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.rfgvieira.auau.utils.CameraUtils.Companion.GetImageFromCamera
-import com.rfgvieira.auau.utils.EnumUtils
-import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.domain.Dogs
 import com.rfgvieira.auau.ui.components.DateInput
 import com.rfgvieira.auau.ui.components.TextInput
 import com.rfgvieira.auau.ui.viewmodel.DogViewModel
+import com.rfgvieira.auau.utils.CameraUtils.Companion.GetImageFromCamera
+import com.rfgvieira.auau.utils.EnumUtils
 
 @Composable
 fun DogAddScreen(navController: NavHostController,showCamera : MutableState<Boolean>, dogViewModel: DogViewModel) {
@@ -111,7 +110,7 @@ fun DogAddScreen(navController: NavHostController,showCamera : MutableState<Bool
 }
 
 fun addDog(navController: NavHostController, name: String, birthday: String, food: String, img: Uri) {
-    val newDog = Dog(name = name, birth = birthday, favoriteFood = food, img = R.drawable.dog1)
+    val newDog = Dog(name = name, birth = birthday, favoriteFood = food, imgUri = img)
     Dogs.addNewDog(newDog)
     navController.popBackStack("doglist", inclusive = false)
 }

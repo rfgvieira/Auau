@@ -32,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.utils.DateUtils.Companion.toYear
@@ -50,15 +51,32 @@ fun DogCard(modifier: Modifier, dog: Dog) {
             )
     ) {
 
-        Row(Modifier.padding(dimensionResource(id = R.dimen.padding_mediumsmall)).clickable { expandable = !expandable }) {
-            Image(
-                painter = painterResource(id = dog.img),
-                contentDescription = "pug",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(dimensionResource(id = R.dimen.icon_size))
-            )
+        Row(
+            Modifier
+                .padding(dimensionResource(id = R.dimen.padding_mediumsmall))
+                .clickable { expandable = !expandable }) {
+            dog.imgDrawable?.let {
+                Image(
+                    painter = painterResource(id = it),
+                    contentDescription = "dogImage",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(dimensionResource(id = R.dimen.icon_size))
+                )
+            }
+
+            dog.imgUri?.let {
+                AsyncImage(
+                    model = it, contentDescription = "dogImage",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(dimensionResource(id = R.dimen.icon_size))
+                )
+            }
+
+
             DogInfo(dog)
             Spacer(modifier = Modifier.weight(1f))
             DogCardButton(expanded = expandable) {
