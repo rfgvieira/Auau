@@ -28,7 +28,6 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
-import androidx.navigation.NavHostController
 import com.rfgvieira.auau.utils.CameraUtils.Companion.getCameraProvider
 import com.rfgvieira.auau.utils.CameraUtils.Companion.takePhoto
 import java.io.File
@@ -40,8 +39,8 @@ fun CameraView(
     executor: Executor,
     onImageCaptured: (Uri) -> Unit,
     onError: (ImageCaptureException) -> Unit,
-    navController: NavHostController,
-    showCamera: MutableState<Boolean>
+    showCamera: MutableState<Boolean>,
+    navigateBackToAdd : () -> Unit
 ) {
     val lensFacing = CameraSelector.LENS_FACING_BACK
     val context = LocalContext.current
@@ -66,7 +65,7 @@ fun CameraView(
     }
 
     if(!showCamera.value){
-        navController.popBackStack("dogadd", false)
+        navigateBackToAdd()
     }
 
     Box(contentAlignment = Alignment.BottomCenter, modifier = Modifier.fillMaxSize().zIndex(1f)) {

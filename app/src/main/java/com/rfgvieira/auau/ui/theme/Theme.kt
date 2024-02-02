@@ -18,7 +18,7 @@ import androidx.core.view.ViewCompat
 private val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
-    primaryContainer = md_theme_light_primaryContainer,
+    primaryContainer = md_theme_dark_primaryContainer,
     onPrimaryContainer = md_theme_light_onPrimaryContainer,
     secondary = md_theme_light_secondary,
     onSecondary = md_theme_light_onSecondary,
@@ -48,7 +48,7 @@ private val LightColorScheme = lightColorScheme(
 private val DarkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
-    primaryContainer = md_theme_dark_primaryContainer,
+    primaryContainer = md_theme_light_primaryContainer,
     onPrimaryContainer = md_theme_dark_onPrimaryContainer,
     secondary = md_theme_dark_secondary,
     onSecondary = md_theme_dark_onSecondary,

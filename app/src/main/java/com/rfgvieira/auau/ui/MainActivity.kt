@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -36,14 +38,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.rfgvieira.auau.utils.CameraUtils
-import com.rfgvieira.auau.utils.CameraUtils.Companion.getOutputDirectory
 import com.rfgvieira.auau.R
+import com.rfgvieira.auau.domain.Dogs
 import com.rfgvieira.auau.ui.screens.CameraView
 import com.rfgvieira.auau.ui.screens.DogAddScreen
+import com.rfgvieira.auau.ui.screens.DogEditScreen
 import com.rfgvieira.auau.ui.screens.DogListScreen
 import com.rfgvieira.auau.ui.theme.AuauTheme
 import com.rfgvieira.auau.ui.viewmodel.DogViewModel
+import com.rfgvieira.auau.utils.CameraUtils
+import com.rfgvieira.auau.utils.CameraUtils.Companion.getOutputDirectory
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -81,15 +85,31 @@ class MainActivity : ComponentActivity() {
                     showFab = showFAB.value,
                     showTopBar = showTopBar.value,
                     onFabClick = { navController.navigate("dogadd") }) {
-                    NavHost(navController = navController, startDestination = "doglist") {
+                    NavHost(navController = navController, startDestination = "doglist", enterTransition = { EnterTransition.None}, exitTransition = { ExitTransition.None}) {
                         composable("doglist") {
                             showFAB.value = true
-                            DogListScreen()
+                            DogListScreen{ dog -> navController.navigate("dogdetails/${dog.id}") }
                         }
                         composable("dogadd") {
                             showTopBar.value = true
                             showFAB.value = false
-                            DogAddScreen(navController, showCamera, dogViewModel)
+                            DogAddScreen(showCamera, dogViewModel){
+                                navController.popBackStack("doglist", inclusive = false)
+                            }
+                        }
+                        composable("dogdetails/{dogId}"){backStack ->
+                            showFAB.value = false
+                            showTopBar.value = false
+
+                            val id = backStack.arguments?.getString("dogId")
+                            Dogs.dogsList().find {
+                                it.id == id
+                            }?.let{dog ->
+                                DogEditScreen(dog) {
+                                    navController.popBackStack("doglist", false)
+                                }
+                            }
+
                         }
                         composable("camera") {
                             showTopBar.value = false
@@ -98,9 +118,10 @@ class MainActivity : ComponentActivity() {
                                 executor = cameraExecutor,
                                 onImageCaptured = ::handleImageCapture,
                                 onError = { Log.i("Camera error", "Error: $it") },
-                                navController,
                                 showCamera
-                            )
+                            ){
+                                navController.popBackStack("dogadd", false)
+                            }
                         }
                     }
                 }

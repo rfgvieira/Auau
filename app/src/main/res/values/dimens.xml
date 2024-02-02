@@ -5,4 +5,5 @@
     <dimen name="padding_mediumsmall">12dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
     <dimen name="icon_size">64dp</dimen>
+    <dimen name="image_size">128dp</dimen>
 </resources>

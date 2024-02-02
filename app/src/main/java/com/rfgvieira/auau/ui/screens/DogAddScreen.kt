@@ -28,7 +28,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.domain.Dogs
@@ -39,7 +38,7 @@ import com.rfgvieira.auau.utils.CameraUtils.Companion.GetImageFromCamera
 import com.rfgvieira.auau.utils.EnumUtils
 
 @Composable
-fun DogAddScreen(navController: NavHostController,showCamera : MutableState<Boolean>, dogViewModel: DogViewModel) {
+fun DogAddScreen(showCamera : MutableState<Boolean>, dogViewModel: DogViewModel, navigateBackToList : () -> Unit) {
     val name = remember { mutableStateOf("") }
     val birthday = remember { mutableStateOf("") }
     val food = remember { mutableStateOf("") }
@@ -103,16 +102,16 @@ fun DogAddScreen(navController: NavHostController,showCamera : MutableState<Bool
             modifier = Modifier
                 .fillMaxWidth(0.8f)
                 .padding(vertical = 16.dp),
-            onClick = { addDog(navController, name.value, birthday.value, food.value,img.value) }) {
+            onClick = { addDog(navigateBackToList, name.value, birthday.value, food.value,img.value) }) {
             Text(text = "Add", fontSize = 24.sp)
         }
     }
 }
 
-fun addDog(navController: NavHostController, name: String, birthday: String, food: String, img: Uri) {
+fun addDog(navigateBackToList: () -> Unit, name: String, birthday: String, food: String, img: Uri) {
     val newDog = Dog(name = name, birth = birthday, favoriteFood = food, imgUri = img)
     Dogs.addNewDog(newDog)
-    navController.popBackStack("doglist", inclusive = false)
+    navigateBackToList()
 }
 
 

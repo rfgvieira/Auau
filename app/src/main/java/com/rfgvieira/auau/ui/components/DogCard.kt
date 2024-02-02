@@ -3,18 +3,22 @@ package com.rfgvieira.auau.ui.components
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,19 +30,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.utils.DateUtils.Companion.toYear
 
 @Composable
-fun DogCard(modifier: Modifier, dog: Dog) {
+fun DogCard(modifier: Modifier, dog: Dog, navigateToDetails : (Dog) -> Unit) {
     var expandable by remember { mutableStateOf(false) }
 
     Card(
@@ -48,49 +49,34 @@ fun DogCard(modifier: Modifier, dog: Dog) {
                     dampingRatio = Spring.DampingRatioLowBouncy,
                     stiffness = Spring.StiffnessMediumLow
                 )
-            )
+            ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
 
         Row(
             Modifier
                 .padding(dimensionResource(id = R.dimen.padding_mediumsmall))
                 .clickable { expandable = !expandable }) {
-            dog.imgDrawable?.let {
-                Image(
-                    painter = painterResource(id = it),
-                    contentDescription = "dogImage",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(dimensionResource(id = R.dimen.icon_size))
-                )
-            }
 
-            dog.imgUri?.let {
-                AsyncImage(
-                    model = it, contentDescription = "dogImage",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(dimensionResource(id = R.dimen.icon_size))
-                )
-            }
-
-
+            DogImage(
+                dog = dog, Modifier
+                    .clip(CircleShape)
+                    .size(dimensionResource(id = R.dimen.icon_size))
+            )
             DogInfo(dog)
             Spacer(modifier = Modifier.weight(1f))
             DogCardButton(expanded = expandable) {
                 expandable = !expandable
             }
         }
+
         if (expandable) {
-            DogFood(
-                dogFood = dog.favoriteFood, Modifier.padding(
-                    start = dimensionResource(R.dimen.padding_medium),
+            DogPlus(
+                Modifier.padding(
                     top = dimensionResource(R.dimen.padding_small),
-                    end = dimensionResource(R.dimen.padding_medium),
                     bottom = dimensionResource(R.dimen.padding_medium)
-                )
+                ), navigateToDetails
+                , dog
             )
         }
 
@@ -106,14 +92,23 @@ fun DogInfo(dog: Dog) {
 }
 
 @Composable
-fun DogFood(
-    dogFood: String,
-    modifier: Modifier = Modifier
+fun DogPlus(
+    modifier: Modifier = Modifier,
+    navigateToDetails: (Dog) -> Unit,
+    dog: Dog
 ) {
-    Column(modifier) {
-        Text(text = "Favorite Food", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-        Text(text = dogFood, fontSize = 12.sp)
+    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+        Button(
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+        ) {
+            Text(text = "Excluir")
+        }
+        Button(onClick = { navigateToDetails(dog) }) {
+            Text(text = "See more")
+        }
     }
+
 }
 
 @Composable
