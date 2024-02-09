@@ -35,15 +35,18 @@ fun TopBarDog(modifier: Modifier, navigateBack: () ->Unit) {
             contentDescription = "Edit Info",
             modifier = Modifier
                 .weight(1f)
-                .size(32.dp),
-            tint = MaterialTheme.colorScheme.onPrimary
+                .size(32.dp)
+                .clickable { /*TODO*/ },
+            tint = MaterialTheme.colorScheme.onPrimary,
+
         )
         Icon(
             imageVector = Icons.Sharp.Delete,
             contentDescription = "Delete Dog",
             modifier = Modifier
                 .weight(1f)
-                .size(32.dp),
+                .size(32.dp)
+                .clickable { /*TODO*/},
             tint = MaterialTheme.colorScheme.onPrimary
         )
     }

@@ -20,12 +20,18 @@ import com.rfgvieira.auau.utils.EnumUtils
 fun TextInput(
     focusManager: FocusManager,
     state: MutableState<String>,
+    isValid: MutableState<Boolean>? = null,
     placeholder: String,
     option: EnumUtils.KeyboardOptions
 ) {
     TextField(
         value = state.value,
-        onValueChange = { state.value = it },
+        onValueChange = { input ->
+            state.value = input
+            isValid?.let {
+                it.value = input.isNotEmpty()
+            }
+        },
         modifier = Modifier.padding(vertical = 16.dp),
         placeholder = {
             Text(
@@ -35,11 +41,17 @@ fun TextInput(
         },
         keyboardOptions = when (option) {
             EnumUtils.KeyboardOptions.NEXT -> {
-                KeyboardOptions(imeAction = ImeAction.Next, capitalization = KeyboardCapitalization.Sentences)
+                KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    capitalization = KeyboardCapitalization.Sentences
+                )
             }
 
             EnumUtils.KeyboardOptions.DONE -> {
-                KeyboardOptions(imeAction = ImeAction.Done, capitalization = KeyboardCapitalization.Sentences)
+                KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    capitalization = KeyboardCapitalization.Sentences
+                )
             }
         },
         keyboardActions =
@@ -56,6 +68,9 @@ fun TextInput(
                 )
             }
 
-        }
+        },
+        isError = isValid?.let{
+            !it.value
+        } ?: false
     )
 }

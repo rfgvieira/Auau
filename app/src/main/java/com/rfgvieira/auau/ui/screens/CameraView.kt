@@ -33,6 +33,8 @@ import com.rfgvieira.auau.utils.CameraUtils.Companion.takePhoto
 import java.io.File
 import java.util.concurrent.Executor
 
+//Tela com a funcionalidade de mostrar camera do celular e tirar uma foto
+
 @Composable
 fun CameraView(
     outputDirectory: File,

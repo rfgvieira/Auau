@@ -2,6 +2,7 @@ package com.rfgvieira.auau.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,9 +23,11 @@ import androidx.compose.ui.unit.sp
 import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.domain.Dogs
+import com.rfgvieira.auau.ui.components.DisplayTags
 import com.rfgvieira.auau.ui.components.DogImage
 import com.rfgvieira.auau.ui.components.TopBarDog
 
+//Tela para modificar um cachorro já existente
 @Composable
 fun DogEditScreen(dog: Dog, navigateBack : () -> Unit) {
     Column {
@@ -50,10 +53,21 @@ fun DogEditScreen(dog: Dog, navigateBack : () -> Unit) {
             Column(modifier = Modifier.fillMaxWidth(0.8f).padding(top = 32.dp)) {
                 Text(text = "Birthdate", fontSize = 20.sp, fontWeight = FontWeight.W500)
                 Text(text = dog.birth, fontSize = 16.sp)
-                Column (modifier = Modifier.padding(top = 24.dp)){
-                    Text(text = "Favorite Food", fontSize = 20.sp, fontWeight = FontWeight.W500)
-                    Text(text = dog.favoriteFood, fontSize = 16.sp)
+
+                dog.favoriteFood?.let{
+                    Column (modifier = Modifier.padding(top = 24.dp)){
+                        Text(text = "Favorite Food", fontSize = 20.sp, fontWeight = FontWeight.W500)
+                        Text(text = it, fontSize = 16.sp)
+                    }
                 }
+
+                dog.hobbies?.let{
+                    Column (modifier = Modifier.padding(top = 24.dp), verticalArrangement = Arrangement.spacedBy(8.dp)){
+                        Text(text = "Hobbies", fontSize = 20.sp, fontWeight = FontWeight.W500)
+                        DisplayTags(it)
+                    }
+                }
+
 
             }
         }

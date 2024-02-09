@@ -24,7 +24,7 @@ import com.rfgvieira.auau.utils.DateUtils.Companion.toDateFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DateInput(state : MutableState<String>, focusManager: FocusManager, placeholder : String) {
+fun DateInput(state : MutableState<String>, isValid : MutableState<Boolean>, focusManager: FocusManager, placeholder : String) {
     val datePickerState = rememberDatePickerState()
     var showDatePickerDialog by remember { mutableStateOf(false) }
     if (showDatePickerDialog) {
@@ -32,6 +32,7 @@ fun DateInput(state : MutableState<String>, focusManager: FocusManager, placehol
             Button(onClick = {
                 datePickerState.selectedDateMillis?.let {
                     state.value = it.toDateFormat()
+                    isValid.value = true
                 }
                 focusManager.moveFocus(FocusDirection.Down)
                 showDatePickerDialog = false
@@ -57,6 +58,7 @@ fun DateInput(state : MutableState<String>, focusManager: FocusManager, placehol
         placeholder = {
             Text(text = placeholder, color = MaterialTheme.colorScheme.outline)
         },
-        readOnly = true
+        readOnly = true,
+        isError = !isValid.value
     )
 }

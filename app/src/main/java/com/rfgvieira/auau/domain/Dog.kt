@@ -9,6 +9,7 @@ data class Dog(
     var birth: String,
     var imgDrawable : Int? = null,
     var imgUri : Uri? = null,
-    var favoriteFood : String
+    var favoriteFood : String? = null,
+    var hobbies : List<String>? = null
 )
 

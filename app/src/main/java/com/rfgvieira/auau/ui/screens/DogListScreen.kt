@@ -17,7 +17,7 @@ import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.domain.Dogs
 import com.rfgvieira.auau.ui.components.DogCard
 
-
+//Tela para listar todos os cachorros cadastrados
 @Composable
 fun DogListScreen(navigateToDetails: (Dog) -> Unit) {
     val dogList: List<Dog> = Dogs.dogsList()
