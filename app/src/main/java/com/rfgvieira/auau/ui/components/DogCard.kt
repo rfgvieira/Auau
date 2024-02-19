@@ -24,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,9 +40,9 @@ import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.utils.DateUtils.Companion.toYear
 
 @Composable
-fun DogCard(modifier: Modifier, dog: Dog, navigateToDetails : (Dog) -> Unit) {
+fun DogCard(modifier: Modifier, dog: Dog, navigateToDetails: (Dog) -> Unit, onDeleteDog : (Dog) -> Unit) {
     var expandable by remember { mutableStateOf(false) }
-
+    val showDialog = remember { mutableStateOf(false) }
     Card(
         modifier = modifier
             .animateContentSize(
@@ -76,11 +77,13 @@ fun DogCard(modifier: Modifier, dog: Dog, navigateToDetails : (Dog) -> Unit) {
                     top = dimensionResource(R.dimen.padding_small),
                     bottom = dimensionResource(R.dimen.padding_medium)
                 ), navigateToDetails
-                , dog
+                , dog, showDialog
             )
         }
 
     }
+
+    if(showDialog.value) DialogDeleteDog(dog = dog , showDialog =  showDialog, onDeleteDog)
 }
 
 @Composable
@@ -95,11 +98,12 @@ fun DogInfo(dog: Dog) {
 fun DogPlus(
     modifier: Modifier = Modifier,
     navigateToDetails: (Dog) -> Unit,
-    dog: Dog
+    dog: Dog,
+    showDialog: MutableState<Boolean>
 ) {
     Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { showDialog.value = true },
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
         ) {
             Text(text = "Excluir")

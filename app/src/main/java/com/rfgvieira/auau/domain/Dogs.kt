@@ -1,18 +1,19 @@
 package com.rfgvieira.auau.domain
 
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.rfgvieira.auau.R
 
 class Dogs {
     companion object {
-        private val result = ArrayList<Dog>()
-        fun dogsList(): List<Dog> {
-            if (result.isEmpty()) {
-                initializeResult()
+        private val dogList = SnapshotStateList<Dog>()
+        fun dogsList(): SnapshotStateList<Dog> {
+            if (dogList.isEmpty()) {
+                initializeDogList()
             }
-            return result
+            return dogList
         }
 
-        private fun initializeResult() {
+        private fun initializeDogList() {
             val dog1 = Dog(
                 name = "Poe",
                 birth = "20/12/2020",
@@ -86,22 +87,23 @@ class Dogs {
                 favoriteFood = "Rice"
             )
 
-            result.add(dog1)
-            result.add(dog2)
-            result.add(dog3)
-            result.add(dog4)
-            result.add(dog5)
-            result.add(dog6)
-            result.add(dog7)
-            result.add(dog8)
-            result.add(dog9)
-            result.add(dog10)
-            result.add(dog11)
-            result.add(dog12)
+            dogList.add(dog1)
+            dogList.add(dog2)
+            dogList.add(dog3)
+            dogList.add(dog4)
+            dogList.add(dog5)
+            dogList.add(dog6)
+            dogList.add(dog7)
+            dogList.add(dog8)
+            dogList.add(dog9)
+            dogList.add(dog10)
+            dogList.add(dog11)
+            dogList.add(dog12)
         }
 
         fun addNewDog(newDog: Dog) {
-            result.add(newDog)
+            dogList.add(newDog)
         }
+
     }
 }

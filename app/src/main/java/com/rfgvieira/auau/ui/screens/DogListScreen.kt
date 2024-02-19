@@ -12,15 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.domain.Dogs
 import com.rfgvieira.auau.ui.components.DogCard
+import com.rfgvieira.auau.ui.viewmodel.DogViewModel
 
 //Tela para listar todos os cachorros cadastrados
 @Composable
-fun DogListScreen(navigateToDetails: (Dog) -> Unit) {
-    val dogList: List<Dog> = Dogs.dogsList()
+fun DogListScreen( viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
+    val dogList = viewModel.dogList
+    if(dogList.isEmpty()){
+        dogList.addAll(Dogs.dogsList())
+    }
+
+
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,21 +39,28 @@ fun DogListScreen(navigateToDetails: (Dog) -> Unit) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
 
     ) {
-        items(dogList) { dogs ->
+        items(viewModel.dogList) { dog ->
+
+
             DogCard(
                 modifier = Modifier
                     .fillMaxWidth(),
-                dog = dogs, navigateToDetails
-            )
+                dog = dog, navigateToDetails
+            ) { deletedDog -> viewModel.deleteDog(deletedDog) }
+
+
         }
 
     }
     Spacer(modifier = Modifier.padding(16.dp))
+
+
+
 }
 
 @Composable
 @Preview(showBackground = true)
 fun DogListPreview() {
-    DogListScreen({})
+    DogListScreen(viewModel(),{})
 
 }

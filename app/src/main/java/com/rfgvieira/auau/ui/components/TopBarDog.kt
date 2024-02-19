@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TopBarDog(modifier: Modifier, navigateBack: () ->Unit) {
+fun TopBarDog(modifier: Modifier, navigateBack: () ->Unit, onDelete : () -> Unit) {
     Row(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -46,8 +46,9 @@ fun TopBarDog(modifier: Modifier, navigateBack: () ->Unit) {
             modifier = Modifier
                 .weight(1f)
                 .size(32.dp)
-                .clickable { /*TODO*/},
+                .clickable { onDelete() },
             tint = MaterialTheme.colorScheme.onPrimary
         )
     }
 }
+

@@ -88,7 +88,8 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "doglist", enterTransition = { EnterTransition.None}, exitTransition = { ExitTransition.None}) {
                         composable("doglist") {
                             showFAB.value = true
-                            DogListScreen{ dog -> navController.navigate("dogdetails/${dog.id}") }
+                            showTopBar.value = true
+                            DogListScreen(dogViewModel){ dog -> navController.navigate("dogdetails/${dog.id}") }
                         }
                         composable("dogadd") {
                             showTopBar.value = true
@@ -105,7 +106,7 @@ class MainActivity : ComponentActivity() {
                             Dogs.dogsList().find {
                                 it.id == id
                             }?.let{dog ->
-                                DogEditScreen(dog) {
+                                DogEditScreen(dog, dogViewModel) {
                                     navController.popBackStack("doglist", false)
                                 }
                             }
