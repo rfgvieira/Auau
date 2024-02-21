@@ -22,16 +22,26 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.unit.dp
 import com.rfgvieira.auau.utils.DateUtils.Companion.toDateFormat
 
+
+
+/*TODO: Mostrar só datas anteriores*/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DateInput(state : MutableState<String>, isValid : MutableState<Boolean>, focusManager: FocusManager, placeholder : String) {
+fun DateInput(
+    state: MutableState<String>,
+    isValid: MutableState<Boolean>,
+    focusManager: FocusManager,
+    placeholder: String,
+    onDatePicked: (String) -> Unit
+) {
     val datePickerState = rememberDatePickerState()
     var showDatePickerDialog by remember { mutableStateOf(false) }
+
     if (showDatePickerDialog) {
         DatePickerDialog(onDismissRequest = { showDatePickerDialog = false }, confirmButton = {
             Button(onClick = {
                 datePickerState.selectedDateMillis?.let {
-                    state.value = it.toDateFormat()
+                    onDatePicked(it.toDateFormat())
                     isValid.value = true
                 }
                 focusManager.moveFocus(FocusDirection.Down)

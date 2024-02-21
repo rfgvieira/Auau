@@ -23,6 +23,9 @@ import com.rfgvieira.auau.ui.components.DogCard
 import com.rfgvieira.auau.ui.viewmodel.DogViewModel
 
 //Tela para listar todos os cachorros cadastrados
+
+
+/*TODO: Placeholder sem foto*/
 @Composable
 fun DogListScreen(viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
     val dogList = viewModel.dogList

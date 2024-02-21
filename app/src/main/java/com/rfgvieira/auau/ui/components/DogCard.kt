@@ -40,6 +40,7 @@ import com.rfgvieira.auau.utils.DateUtils.Companion.toYear
 fun DogCard(modifier: Modifier, dog: Dog, navigateToDetails: (Dog) -> Unit, onDeleteDog : (Dog) -> Unit) {
     var expandable by remember { mutableStateOf(false) }
     val showDialog = remember { mutableStateOf(false) }
+
     Card(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)

@@ -21,15 +21,14 @@ fun TextInput(
     isValid: MutableState<Boolean>? = null,
     placeholder: String,
     option: EnumUtils.KeyboardOptions,
-    modifier: Modifier
+    modifier: Modifier,
+    onTextInputted : (String) -> Unit
 ) {
     TextField(
         value = state.value,
         onValueChange = { input ->
-            state.value = input
-            isValid?.let {
-                it.value = input.isNotEmpty()
-            }
+            onTextInputted(input)
+
         },
         modifier = modifier,
         placeholder = {

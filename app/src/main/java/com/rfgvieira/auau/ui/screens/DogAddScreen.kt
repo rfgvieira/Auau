@@ -1,6 +1,7 @@
 package com.rfgvieira.auau.ui.screens
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +38,8 @@ import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.Dog
 import com.rfgvieira.auau.domain.Dogs
 import com.rfgvieira.auau.ui.components.DateInput
-import com.rfgvieira.auau.ui.components.Select
+import com.rfgvieira.auau.ui.components.DisplayTagsEdit
+import com.rfgvieira.auau.ui.components.MultipleSelect
 import com.rfgvieira.auau.ui.components.TextInput
 import com.rfgvieira.auau.ui.viewmodel.DogViewModel
 import com.rfgvieira.auau.utils.CameraUtils.Companion.GetImageFromCamera
@@ -62,6 +64,8 @@ fun DogAddScreen(
     val hobbies = remember {
         mutableStateListOf<String>()
     }
+
+    val context = LocalContext.current
     val hobbiesList = listOf("Dig","Walk","Bark","Play","Sleep","Pat")
 
     if (clickImage) {
@@ -107,7 +111,10 @@ fun DogAddScreen(
             focusManager = focusManager, name, nameValid, "Name",
             EnumUtils.KeyboardOptions.NEXT,
             modifier = Modifier.padding(vertical = 16.dp)
-        )
+        ){input ->
+            name.value = input
+            nameValid.value = input.isNotEmpty()
+        }
 
 
         DateInput(
@@ -115,16 +122,25 @@ fun DogAddScreen(
             isValid = birthdayValid,
             focusManager = focusManager,
             placeholder = "Birthday"
-        )
+        ){
+            birthday.value = it
+        }
 
 
         TextInput(
             focusManager = focusManager, state = food, placeholder = "Favorite Food",
             option = EnumUtils.KeyboardOptions.DONE,
             modifier = Modifier.padding(vertical = 16.dp)
-        )
+        ){ food.value = it }
 
-        Select(hobbies, hobbiesList, Modifier)
+        MultipleSelect("Hobbies", hobbiesList, Modifier){ item ->
+            if(!hobbies.contains(item))
+                hobbies.add(item)
+            else
+                Toast.makeText(context,"Hobby already added", Toast.LENGTH_SHORT).show()
+        }
+
+        DisplayTagsEdit(hobbies, Modifier.padding(bottom = 12.dp))
 
 
 
