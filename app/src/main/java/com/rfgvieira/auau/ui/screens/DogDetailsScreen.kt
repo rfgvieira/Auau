@@ -30,6 +30,7 @@ import com.rfgvieira.auau.ui.components.DialogDeleteDog
 import com.rfgvieira.auau.ui.components.DisplayTags
 import com.rfgvieira.auau.ui.components.DogImage
 import com.rfgvieira.auau.ui.components.TopBarDog
+import com.rfgvieira.auau.ui.theme.AuauTheme
 import com.rfgvieira.auau.ui.viewmodel.DogViewModel
 
 //Tela para modificar um cachorro já existente
@@ -82,7 +83,7 @@ fun DogEditScreen(dog: Dog, viewModel: DogViewModel, navigateBack: () -> Unit) {
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(text = "Hobbies", fontSize = 20.sp, fontWeight = FontWeight.W500)
-                        DisplayTags(it)
+                        DisplayTags(it, Modifier.padding(bottom = 12.dp))
                     }
                 }
 
@@ -103,5 +104,8 @@ fun DogEditScreen(dog: Dog, viewModel: DogViewModel, navigateBack: () -> Unit) {
 @Composable
 @Preview(showBackground = true)
 fun DogEditPreview() {
-    DogEditScreen(Dogs.dogsList()[0], viewModel(),{})
+    AuauTheme {
+        DogEditScreen(Dogs.dogsList()[0], viewModel(),{})
+    }
+
 }

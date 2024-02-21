@@ -1,8 +1,5 @@
 package com.rfgvieira.auau.ui.components
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,13 +41,7 @@ fun DogCard(modifier: Modifier, dog: Dog, navigateToDetails: (Dog) -> Unit, onDe
     var expandable by remember { mutableStateOf(false) }
     val showDialog = remember { mutableStateOf(false) }
     Card(
-        modifier = modifier
-            .animateContentSize(
-                animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = Spring.StiffnessMediumLow
-                )
-            ),
+        modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
 

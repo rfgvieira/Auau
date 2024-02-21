@@ -105,7 +105,8 @@ fun DogAddScreen(
 
         TextInput(
             focusManager = focusManager, name, nameValid, "Name",
-            EnumUtils.KeyboardOptions.NEXT
+            EnumUtils.KeyboardOptions.NEXT,
+            modifier = Modifier.padding(vertical = 16.dp)
         )
 
 
@@ -119,10 +120,11 @@ fun DogAddScreen(
 
         TextInput(
             focusManager = focusManager, state = food, placeholder = "Favorite Food",
-            option = EnumUtils.KeyboardOptions.DONE
+            option = EnumUtils.KeyboardOptions.DONE,
+            modifier = Modifier.padding(vertical = 16.dp)
         )
 
-        Select(hobbies, hobbiesList)
+        Select(hobbies, hobbiesList, Modifier)
 
 
 

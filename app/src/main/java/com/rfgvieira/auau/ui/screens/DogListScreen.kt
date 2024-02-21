@@ -1,6 +1,9 @@
 package com.rfgvieira.auau.ui.screens
 
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,9 +24,9 @@ import com.rfgvieira.auau.ui.viewmodel.DogViewModel
 
 //Tela para listar todos os cachorros cadastrados
 @Composable
-fun DogListScreen( viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
+fun DogListScreen(viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
     val dogList = viewModel.dogList
-    if(dogList.isEmpty()){
+    if (dogList.isEmpty()) {
         dogList.addAll(Dogs.dogsList())
     }
 
@@ -44,7 +47,13 @@ fun DogListScreen( viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
 
             DogCard(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .animateContentSize(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioLowBouncy,
+                            stiffness = Spring.StiffnessMediumLow
+                        )
+                    ),
                 dog = dog, navigateToDetails
             ) { deletedDog -> viewModel.deleteDog(deletedDog) }
 
@@ -55,12 +64,11 @@ fun DogListScreen( viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
     Spacer(modifier = Modifier.padding(16.dp))
 
 
-
 }
 
 @Composable
 @Preview(showBackground = true)
 fun DogListPreview() {
-    DogListScreen(viewModel(),{})
+    DogListScreen(viewModel(), {})
 
 }

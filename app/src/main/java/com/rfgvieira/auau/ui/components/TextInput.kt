@@ -1,6 +1,5 @@
 package com.rfgvieira.auau.ui.components
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
@@ -13,7 +12,6 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.unit.dp
 import com.rfgvieira.auau.utils.EnumUtils
 
 @Composable
@@ -22,7 +20,8 @@ fun TextInput(
     state: MutableState<String>,
     isValid: MutableState<Boolean>? = null,
     placeholder: String,
-    option: EnumUtils.KeyboardOptions
+    option: EnumUtils.KeyboardOptions,
+    modifier: Modifier
 ) {
     TextField(
         value = state.value,
@@ -32,7 +31,7 @@ fun TextInput(
                 it.value = input.isNotEmpty()
             }
         },
-        modifier = Modifier.padding(vertical = 16.dp),
+        modifier = modifier,
         placeholder = {
             Text(
                 text = placeholder,

@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun DisplayTags(list : List<String>) {
+fun DisplayTags(list : List<String> , modifier: Modifier) {
     if (list.isNotEmpty()) {
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(bottom = 12.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = modifier) {
             list.forEach { item ->
                 DisplayTagCard(item)
             }
@@ -31,9 +31,9 @@ fun DisplayTags(list : List<String>) {
 }
 
 @Composable
-fun DisplayTagsEdit(state: SnapshotStateList<String>) {
+fun DisplayTagsEdit(state: SnapshotStateList<String>, modifier : Modifier) {
     if (state.isNotEmpty()) {
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(bottom = 12.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = modifier) {
             state.forEach { item ->
                 DisplayTagCard(item, state)
             }

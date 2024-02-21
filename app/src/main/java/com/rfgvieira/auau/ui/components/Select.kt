@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Select(state: SnapshotStateList<String>, list: List<String>) {
+fun Select(state: SnapshotStateList<String>, list: List<String>, modifier : Modifier) {
 
 
     var selectedElement by remember {
@@ -50,7 +50,7 @@ fun Select(state: SnapshotStateList<String>, list: List<String>) {
                         imageVector = if (expanded) Icons.Sharp.ArrowDropUp else Icons.Sharp.ArrowDropDown,
                         contentDescription = "Select Arrow"
                     )
-                }, modifier = Modifier.padding(16.dp).menuAnchor(), placeholder = { Text("Hobbies") }, readOnly = true)
+                }, modifier = modifier.padding(16.dp).menuAnchor(), placeholder = { Text("Hobbies") }, readOnly = true)
 
             ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                 list.forEach { item ->
@@ -69,7 +69,7 @@ fun Select(state: SnapshotStateList<String>, list: List<String>) {
                 }
             }
         }
-        DisplayTagsEdit(state)
+        DisplayTagsEdit(state, Modifier.padding(bottom = 12.dp))
     }
 }
 
@@ -84,5 +84,5 @@ fun SelectPreview() {
     val hobbiesList = listOf("Dig", "Walk", "Bark", "Play", "Sleep", "Pat")
 
     state.addAll(arrayOf("Batata", "Arroz", "Samambaia", "Bahia"))
-    Select(state = state, hobbiesList)
+    Select(state = state, hobbiesList, Modifier.padding(16.dp))
 }
