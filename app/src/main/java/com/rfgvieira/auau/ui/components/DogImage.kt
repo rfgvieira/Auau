@@ -7,6 +7,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import com.rfgvieira.auau.domain.Dog
+/*TODO: Placeholder sem foto*/
 
 @Composable
 fun DogImage(dog: Dog, modifier: Modifier) {
