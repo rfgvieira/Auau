@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.domain
+package com.rfgvieira.auau.domain.model
 
 import android.net.Uri
 import java.util.UUID

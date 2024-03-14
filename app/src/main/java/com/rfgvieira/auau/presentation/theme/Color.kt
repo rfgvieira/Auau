@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.theme
+package com.rfgvieira.auau.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

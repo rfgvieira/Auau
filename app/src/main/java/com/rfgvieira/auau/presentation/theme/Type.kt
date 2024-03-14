@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.theme
+package com.rfgvieira.auau.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

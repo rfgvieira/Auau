@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.components
+package com.rfgvieira.auau.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.screens
+package com.rfgvieira.auau.presentation.screens
 
 import android.net.Uri
 import androidx.camera.core.CameraSelector

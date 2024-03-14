@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.screens
+package com.rfgvieira.auau.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,14 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rfgvieira.auau.R
-import com.rfgvieira.auau.domain.Dog
-import com.rfgvieira.auau.domain.Dogs
-import com.rfgvieira.auau.ui.components.DialogDeleteDog
-import com.rfgvieira.auau.ui.components.DisplayTags
-import com.rfgvieira.auau.ui.components.DogImage
-import com.rfgvieira.auau.ui.components.TopBarDog
-import com.rfgvieira.auau.ui.theme.AuauTheme
-import com.rfgvieira.auau.ui.viewmodel.DogViewModel
+import com.rfgvieira.auau.domain.DogDAO
+import com.rfgvieira.auau.domain.model.Dog
+
+import com.rfgvieira.auau.presentation.components.DialogDeleteDog
+import com.rfgvieira.auau.presentation.components.DisplayTags
+import com.rfgvieira.auau.presentation.components.DogImage
+import com.rfgvieira.auau.presentation.components.TopBarDog
+import com.rfgvieira.auau.presentation.theme.AuauTheme
+import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
 
 //Tela para modificar um cachorro já existente
 @Composable
@@ -105,7 +106,7 @@ fun DogEditScreen(dog: Dog, viewModel: DogViewModel, navigateBack: () -> Unit) {
 @Preview(showBackground = true)
 fun DogEditPreview() {
     AuauTheme {
-        DogEditScreen(Dogs.dogsList()[0], viewModel(),{})
+        DogEditScreen(DogDAO.dogsList()[0], viewModel(),{})
     }
 
 }

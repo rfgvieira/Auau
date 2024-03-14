@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.screens
+package com.rfgvieira.auau.presentation.screens
 
 import android.net.Uri
 import android.widget.Toast
@@ -35,13 +35,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.rfgvieira.auau.R
-import com.rfgvieira.auau.domain.Dog
-import com.rfgvieira.auau.domain.Dogs
-import com.rfgvieira.auau.ui.components.DateInput
-import com.rfgvieira.auau.ui.components.DisplayTagsEdit
-import com.rfgvieira.auau.ui.components.MultipleSelect
-import com.rfgvieira.auau.ui.components.TextInput
-import com.rfgvieira.auau.ui.viewmodel.DogViewModel
+import com.rfgvieira.auau.domain.DogDAO
+import com.rfgvieira.auau.domain.model.Dog
+import com.rfgvieira.auau.presentation.components.DateInput
+import com.rfgvieira.auau.presentation.components.DisplayTagsEdit
+import com.rfgvieira.auau.presentation.components.MultipleSelect
+import com.rfgvieira.auau.presentation.components.TextInput
+import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
 import com.rfgvieira.auau.utils.CameraUtils.Companion.GetImageFromCamera
 import com.rfgvieira.auau.utils.EnumUtils
 
@@ -184,7 +184,7 @@ fun addDog(
 ) {
     val newDog =
         Dog(name = name, birth = birthday, favoriteFood = food, imgUri = img, hobbies = hobbies)
-    Dogs.addNewDog(newDog)
+    DogDAO.addNewDog(newDog)
     navigateBackToList()
 }
 

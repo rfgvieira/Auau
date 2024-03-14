@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.components
+package com.rfgvieira.auau.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row

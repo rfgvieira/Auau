@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.components
+package com.rfgvieira.auau.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
-import com.rfgvieira.auau.domain.Dog
+import com.rfgvieira.auau.domain.model.Dog
 /*TODO: Placeholder sem foto*/
 
 @Composable

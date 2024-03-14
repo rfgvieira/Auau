@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.components
+package com.rfgvieira.auau.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,7 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rfgvieira.auau.R
-import com.rfgvieira.auau.domain.Dog
+import com.rfgvieira.auau.domain.model.Dog
 import com.rfgvieira.auau.utils.DateUtils.Companion.toYear
 
 @Composable

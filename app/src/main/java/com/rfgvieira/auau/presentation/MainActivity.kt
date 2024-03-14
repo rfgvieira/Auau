@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui
+package com.rfgvieira.auau.presentation
 
 import android.net.Uri
 import android.os.Bundle
@@ -21,10 +21,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
-import com.rfgvieira.auau.ui.components.TopBarApp
-import com.rfgvieira.auau.ui.navigation.NavigationApp
-import com.rfgvieira.auau.ui.theme.AuauTheme
-import com.rfgvieira.auau.ui.viewmodel.DogViewModel
+import com.rfgvieira.auau.presentation.components.TopBarApp
+import com.rfgvieira.auau.presentation.navigation.NavigationApp
+import com.rfgvieira.auau.presentation.theme.AuauTheme
+import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
 import com.rfgvieira.auau.utils.CameraUtils
 import com.rfgvieira.auau.utils.CameraUtils.Companion.getOutputDirectory
 import java.io.File

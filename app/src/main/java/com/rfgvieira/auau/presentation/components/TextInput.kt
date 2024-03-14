@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.components
+package com.rfgvieira.auau.presentation.components
 
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions

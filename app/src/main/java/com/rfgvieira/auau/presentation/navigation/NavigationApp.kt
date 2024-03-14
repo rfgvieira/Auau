@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.navigation
+package com.rfgvieira.auau.presentation.navigation
 
 import android.net.Uri
 import android.util.Log
@@ -9,12 +9,12 @@ import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.rfgvieira.auau.domain.Dogs
-import com.rfgvieira.auau.ui.screens.CameraView
-import com.rfgvieira.auau.ui.screens.DogAddScreen
-import com.rfgvieira.auau.ui.screens.DogEditScreen
-import com.rfgvieira.auau.ui.screens.DogListScreen
-import com.rfgvieira.auau.ui.viewmodel.DogViewModel
+import com.rfgvieira.auau.domain.DogDAO
+import com.rfgvieira.auau.presentation.screens.CameraView
+import com.rfgvieira.auau.presentation.screens.DogAddScreen
+import com.rfgvieira.auau.presentation.screens.DogEditScreen
+import com.rfgvieira.auau.presentation.screens.DogListScreen
+import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
 import java.io.File
 import java.util.concurrent.ExecutorService
 
@@ -51,7 +51,7 @@ fun NavigationApp(
             onNavigateToDetails()
 
             val id = backStack.arguments?.getString("dogId")
-            Dogs.dogsList().find {
+            DogDAO.dogsList().find {
                 it.id == id
             }?.let { dog ->
                 DogEditScreen(dog, dogViewModel) {

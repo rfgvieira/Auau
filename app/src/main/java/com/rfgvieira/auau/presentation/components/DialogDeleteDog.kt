@@ -1,4 +1,4 @@
-package com.rfgvieira.auau.ui.components
+package com.rfgvieira.auau.presentation.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -13,7 +13,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rfgvieira.auau.domain.Dog
+import com.rfgvieira.auau.domain.model.Dog
 
 @Composable
 fun DialogDeleteDog(dog: Dog, showDialog: MutableState<Boolean>, onDeleteDog : (Dog) -> Unit, navigateBack: (() -> Unit)? = null) {

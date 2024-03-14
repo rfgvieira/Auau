@@ -2,8 +2,9 @@ package com.rfgvieira.auau.domain
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.rfgvieira.auau.R
+import com.rfgvieira.auau.domain.model.Dog
 
-class Dogs {
+class DogDAO {
     companion object {
         private val dogList = SnapshotStateList<Dog>()
         fun dogsList(): SnapshotStateList<Dog> {
