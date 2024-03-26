@@ -18,6 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.rfgvieira.auau.R
 
+
+/*TODO: Adidicionar sobre*/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarApp(modifier: Modifier) {

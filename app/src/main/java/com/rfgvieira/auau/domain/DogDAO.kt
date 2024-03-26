@@ -102,7 +102,7 @@ class DogDAO {
             dogList.add(dog12)
         }
 
-        fun addNewDog(newDog: Dog) {
+        fun save(newDog: Dog) {
             dogList.add(newDog)
         }
 

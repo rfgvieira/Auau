@@ -184,7 +184,7 @@ fun addDog(
 ) {
     val newDog =
         Dog(name = name, birth = birthday, favoriteFood = food, imgUri = img, hobbies = hobbies)
-    DogDAO.addNewDog(newDog)
+    DogDAO.save(newDog)
     navigateBackToList()
 }
 
