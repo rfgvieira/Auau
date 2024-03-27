@@ -1,7 +1,7 @@
 
 # Auau
 
-A simple app to dog owners to manage your puppies
+A app to dog owners to manage your puppies
 
 
 ## Stack
@@ -19,7 +19,7 @@ The project includes three main packages, each one divided in sub-packages:
 - **`presentation`:** Contain the UI related code.
 - **`utils`:** Contain support codes like extension functions, etc..
 
-## Instalação
+## Install
 
 Open Android Studio to clone this repo and run this code on terminal
 
