@@ -6,6 +6,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberDatePickerState
@@ -25,6 +26,7 @@ import com.rfgvieira.auau.utils.DateUtils.Companion.toDateFormat
 
 
 /*TODO: Mostrar só datas anteriores*/
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateInput(
@@ -34,7 +36,11 @@ fun DateInput(
     placeholder: String,
     onDatePicked: (String) -> Unit
 ) {
-    val datePickerState = rememberDatePickerState()
+    val datePickerState = rememberDatePickerState(selectableDates = object : SelectableDates{
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            return utcTimeMillis <= System.currentTimeMillis()
+        }
+    })
     var showDatePickerDialog by remember { mutableStateOf(false) }
 
     if (showDatePickerDialog) {
