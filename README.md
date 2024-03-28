@@ -6,7 +6,7 @@ A app to dog owners to manage your puppies
 
 ## Stack
 
-**Language:** Kotlin (versions: 1.9.10 -1.9.22)
+**Language:** Kotlin (versions: 1.7.10)
 
 **Libraries:** Jetpack Compose, Material Design 3, Coil, CameraX
 
