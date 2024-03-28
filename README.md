@@ -38,7 +38,7 @@ Connect an Android device to your development machine.
 
 
 
-## Autores
+## Author
 
 - Rodrigo Vieira ([@rfgvieira](https://github.com/rfgvieira))
 
