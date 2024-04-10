@@ -2,12 +2,17 @@ package com.rfgvieira.auau.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.sharp.Delete
+import androidx.compose.material.icons.sharp.Edit
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +41,12 @@ import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
 
 //Tela para modificar um cachorro já existente
 @Composable
-fun DogEditScreen(dog: Dog, viewModel: DogViewModel, navigateBack: () -> Unit) {
+fun DogDetailsScreen(
+    dog: Dog,
+    viewModel: DogViewModel,
+    navigateToEdit: () -> Unit,
+    navigateBack: () -> Unit
+) {
 
     val showDialog = remember { mutableStateOf(false) }
 
@@ -46,7 +56,29 @@ fun DogEditScreen(dog: Dog, viewModel: DogViewModel, navigateBack: () -> Unit) {
                 .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
             navigateBack = navigateBack,
-            onDelete = { showDialog.value = true }
+            title = {Text("Baba", color = Color.White)},
+            delete = {
+                Icon(
+                    imageVector = Icons.Sharp.Delete,
+                    contentDescription = "Delete Dog",
+                    modifier = Modifier
+                        .weight(1f)
+                        .size(32.dp)
+                        .clickable { showDialog.value = true },
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            },
+            edit = {
+                Icon(
+                    imageVector = Icons.Sharp.Edit,
+                    contentDescription = "Edit Info",
+                    modifier = Modifier
+                        .weight(1f)
+                        .size(32.dp)
+                        .clickable { navigateToEdit() },
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         )
 
         Column(
@@ -94,19 +126,22 @@ fun DogEditScreen(dog: Dog, viewModel: DogViewModel, navigateBack: () -> Unit) {
     }
 
 
-    if (showDialog.value) DialogDeleteDog(dog, showDialog, {deletedDog -> viewModel.deleteDog(deletedDog)}, navigateBack)
+    if (showDialog.value) DialogDeleteDog(
+        dog,
+        showDialog,
+        { deletedDog -> viewModel.deleteDog(deletedDog) },
+        navigateBack
+    )
 
 
 }
 
 
-
-
 @Composable
 @Preview(showBackground = true)
-fun DogEditPreview() {
+fun DogDetailsPreview() {
     AuauTheme {
-        DogEditScreen(DogDAO.dogsList()[0], viewModel(),{})
+        DogDetailsScreen(DogDAO.dogsList()[0], viewModel(), {}, {})
     }
 
 }

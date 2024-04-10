@@ -23,10 +23,6 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.unit.dp
 import com.rfgvieira.auau.utils.DateUtils.Companion.toDateFormat
 
-
-
-/*TODO: Mostrar só datas anteriores*/
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateInput(

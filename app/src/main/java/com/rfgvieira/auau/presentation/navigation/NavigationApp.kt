@@ -6,12 +6,15 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rfgvieira.auau.domain.DogDAO
+import com.rfgvieira.auau.domain.model.Dog
 import com.rfgvieira.auau.presentation.screens.CameraView
 import com.rfgvieira.auau.presentation.screens.DogAddScreen
+import com.rfgvieira.auau.presentation.screens.DogDetailsScreen
 import com.rfgvieira.auau.presentation.screens.DogEditScreen
 import com.rfgvieira.auau.presentation.screens.DogListScreen
 import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
@@ -29,7 +32,7 @@ fun NavigationApp(
     onNavigateToList: () -> Unit,
     onNavigateToAdd: () -> Unit,
     onNavigateToDetails: () -> Unit,
-    onNavigateToCamera: () -> Unit
+    onNavigateToCamera: () -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -48,16 +51,22 @@ fun NavigationApp(
             }
         }
         composable("dogdetails/{dogId}") { backStack ->
-            onNavigateToDetails()
-
-            val id = backStack.arguments?.getString("dogId")
-            DogDAO.dogsList().find {
-                it.id == id
-            }?.let { dog ->
-                DogEditScreen(dog, dogViewModel) {
+            DogInfo(onNavigateToDetails = onNavigateToDetails, backStack = backStack) { dog ->
+                DogDetailsScreen(dog, dogViewModel, navigateToEdit = {
+                    navController.navigate("dogedit/${dog.id}")
+                }) {
                     navController.popBackStack("doglist", false)
                 }
             }
+        }
+        composable("dogedit/{dogId}"){backStack ->
+            DogInfo(onNavigateToDetails = onNavigateToDetails, backStack = backStack) {
+                DogEditScreen(dogViewModel){
+                    navController.popBackStack()
+                }
+            }
+
+
 
         }
         composable("camera") {
@@ -72,5 +81,17 @@ fun NavigationApp(
                 navController.popBackStack("dogadd", false)
             }
         }
+    }
+}
+
+@Composable
+fun DogInfo(onNavigateToDetails: () -> Unit,  backStack: NavBackStackEntry, screen : @Composable ((Dog) -> Unit)){
+    onNavigateToDetails()
+
+    val id = backStack.arguments?.getString("dogId")
+    DogDAO.dogsList().find {
+        it.id == id
+    }?.let { dog ->
+        screen(dog)
     }
 }

@@ -15,9 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-
+/*TODO: Adjuste title position*/
 @Composable
-fun TopBarDog(modifier: Modifier, navigateBack: () ->Unit, onDelete : () -> Unit) {
+fun TopBarDog(
+    modifier: Modifier,
+    navigateBack: () -> Unit,
+    title: @Composable () -> Unit,
+    delete: @Composable () -> Unit = {},
+    edit: @Composable () -> Unit = {}) {
     Row(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -26,29 +31,20 @@ fun TopBarDog(modifier: Modifier, navigateBack: () ->Unit, onDelete : () -> Unit
                 imageVector = Icons.Sharp.ArrowBack,
                 contentDescription = "Back to List",
                 tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.clip(CircleShape).size(32.dp).clickable { navigateBack() }
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(32.dp)
+                    .clickable { navigateBack() }
             )
         }
+        Row(modifier = Modifier.weight(2f)) {
+            title()
+        }
 
-        Icon(
-            imageVector = Icons.Sharp.Edit,
-            contentDescription = "Edit Info",
-            modifier = Modifier
-                .weight(1f)
-                .size(32.dp)
-                .clickable { /*TODO*/ },
-            tint = MaterialTheme.colorScheme.onPrimary,
+        edit()
 
-        )
-        Icon(
-            imageVector = Icons.Sharp.Delete,
-            contentDescription = "Delete Dog",
-            modifier = Modifier
-                .weight(1f)
-                .size(32.dp)
-                .clickable { onDelete() },
-            tint = MaterialTheme.colorScheme.onPrimary
-        )
+        delete()
+
     }
 }
 
