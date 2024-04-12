@@ -60,8 +60,8 @@ fun NavigationApp(
             }
         }
         composable("dogedit/{dogId}"){backStack ->
-            DogInfo(onNavigateToDetails = onNavigateToDetails, backStack = backStack) {
-                DogEditScreen(dogViewModel){
+            DogInfo(onNavigateToDetails = onNavigateToDetails, backStack = backStack) { dog ->
+                DogEditScreen(dog, dogViewModel){
                     navController.popBackStack()
                 }
             }

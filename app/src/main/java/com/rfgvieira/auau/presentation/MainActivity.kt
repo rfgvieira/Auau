@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.rfgvieira.auau.presentation.components.TopBarApp
+import com.rfgvieira.auau.presentation.components.TopBarMain
 import com.rfgvieira.auau.presentation.navigation.NavigationApp
 import com.rfgvieira.auau.presentation.theme.AuauTheme
 import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
@@ -119,7 +119,7 @@ fun AuauApp(
 ) {
 
     Scaffold(
-        topBar = { if (showTopBar) TopBarApp(modifier = Modifier) },
+        topBar = { if (showTopBar) TopBarMain() },
         floatingActionButton = {
             if (showFab) {
                 FloatingActionButton(
@@ -127,7 +127,11 @@ fun AuauApp(
                     shape = CircleShape,
                     containerColor = MaterialTheme.colorScheme.primary
                 ) {
-                    Icon(imageVector = Icons.Sharp.Add, contentDescription = "Add Icon", Modifier.size(32.dp))
+                    Icon(
+                        imageVector = Icons.Sharp.Add,
+                        contentDescription = "Add Icon",
+                        Modifier.size(32.dp)
+                    )
                 }
             }
 
@@ -139,6 +143,7 @@ fun AuauApp(
         }
     }
 }
+
 
 
 

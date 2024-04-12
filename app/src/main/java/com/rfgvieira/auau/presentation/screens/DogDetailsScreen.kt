@@ -1,8 +1,6 @@
 package com.rfgvieira.auau.presentation.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Delete
 import androidx.compose.material.icons.sharp.Edit
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +30,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rfgvieira.auau.R
 import com.rfgvieira.auau.domain.DogDAO
 import com.rfgvieira.auau.domain.model.Dog
-
 import com.rfgvieira.auau.presentation.components.DialogDeleteDog
 import com.rfgvieira.auau.presentation.components.DisplayTags
 import com.rfgvieira.auau.presentation.components.DogImage
@@ -39,7 +37,7 @@ import com.rfgvieira.auau.presentation.components.TopBarDog
 import com.rfgvieira.auau.presentation.theme.AuauTheme
 import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
 
-//Tela para modificar um cachorro já existente
+//Tela para ver detalhes do cachorro
 @Composable
 fun DogDetailsScreen(
     dog: Dog,
@@ -52,34 +50,33 @@ fun DogDetailsScreen(
 
     Column {
         TopBarDog(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
+            modifier = Modifier,
             navigateBack = navigateBack,
-            title = {Text("Baba", color = Color.White)},
-            delete = {
-                Icon(
-                    imageVector = Icons.Sharp.Delete,
-                    contentDescription = "Delete Dog",
-                    modifier = Modifier
-                        .weight(1f)
-                        .size(32.dp)
-                        .clickable { showDialog.value = true },
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
-            },
-            edit = {
-                Icon(
-                    imageVector = Icons.Sharp.Edit,
-                    contentDescription = "Edit Info",
-                    modifier = Modifier
-                        .weight(1f)
-                        .size(32.dp)
-                        .clickable { navigateToEdit() },
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
+            title = { Text(dog.name, color = Color.White, fontSize = 20.sp) },
+            actions = {
+                IconButton(onClick = { navigateToEdit() }) {
+                    Icon(
+                        modifier = Modifier.size(32.dp),
+                        imageVector = Icons.Sharp.Edit,
+                        contentDescription = "Edit Info",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+
+                IconButton(
+                    onClick = { showDialog.value = true }) {
+                    Icon(
+                        modifier = Modifier.size(32.dp),
+                        imageVector = Icons.Sharp.Delete,
+                        contentDescription = "Delete Dog",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
             }
         )
+
+
+
 
         Column(
             Modifier
@@ -105,7 +102,11 @@ fun DogDetailsScreen(
 
                 dog.favoriteFood?.let {
                     Column(modifier = Modifier.padding(top = 24.dp)) {
-                        Text(text = "Favorite Food", fontSize = 20.sp, fontWeight = FontWeight.W500)
+                        Text(
+                            text = "Favorite Food",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.W500
+                        )
                         Text(text = it, fontSize = 16.sp)
                     }
                 }
@@ -115,7 +116,11 @@ fun DogDetailsScreen(
                         modifier = Modifier.padding(top = 24.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Text(text = "Hobbies", fontSize = 20.sp, fontWeight = FontWeight.W500)
+                        Text(
+                            text = "Hobbies",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.W500
+                        )
                         DisplayTags(it, Modifier.padding(bottom = 12.dp))
                     }
                 }
