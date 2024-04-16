@@ -6,7 +6,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
@@ -17,15 +16,15 @@ import com.rfgvieira.auau.utils.EnumUtils
 @Composable
 fun TextInput(
     focusManager: FocusManager,
-    state: MutableState<String>,
-    isValid: MutableState<Boolean>? = null,
+    state: String,
+    isValid: Boolean? = null,
     placeholder: String,
     option: EnumUtils.KeyboardOptions,
     modifier: Modifier,
     onTextInputted : (String) -> Unit
 ) {
     TextField(
-        value = state.value,
+        value = state,
         onValueChange = { input ->
             onTextInputted(input)
 
@@ -68,7 +67,7 @@ fun TextInput(
 
         },
         isError = isValid?.let{
-            !it.value
+            !it
         } ?: false
     )
 }

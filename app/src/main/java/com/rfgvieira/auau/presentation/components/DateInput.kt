@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,8 +25,8 @@ import com.rfgvieira.auau.utils.DateUtils.Companion.toDateFormat
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateInput(
-    state: MutableState<String>,
-    isValid: MutableState<Boolean>,
+    state: String,
+    isValid: Boolean,
     focusManager: FocusManager,
     placeholder: String,
     onDatePicked: (String) -> Unit
@@ -44,7 +43,6 @@ fun DateInput(
             Button(onClick = {
                 datePickerState.selectedDateMillis?.let {
                     onDatePicked(it.toDateFormat())
-                    isValid.value = true
                 }
                 focusManager.moveFocus(FocusDirection.Down)
                 showDatePickerDialog = false
@@ -57,7 +55,7 @@ fun DateInput(
     }
 
     TextField(
-        value = state.value,
+        value = state,
         onValueChange = { },
         Modifier
             .padding(vertical = 16.dp)
@@ -71,6 +69,6 @@ fun DateInput(
             Text(text = placeholder, color = MaterialTheme.colorScheme.outline)
         },
         readOnly = true,
-        isError = !isValid.value
+        isError = !isValid
     )
 }
