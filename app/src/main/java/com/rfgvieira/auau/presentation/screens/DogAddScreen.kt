@@ -1,6 +1,5 @@
 package com.rfgvieira.auau.presentation.screens
 
-import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +9,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,17 +29,13 @@ fun DogAddScreen(
     dogViewModel: DogViewModel,
     navigateBackToList: () -> Unit
 ) {
-
-    val img = dogViewModel.uriImage.observeAsState(Uri.EMPTY)
-
-
-
-
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         val state = remember {
-            DogFormState()
+            DogFormState(dogViewModel = dogViewModel)
         }
-        DogForm(showCamera = showCamera, dogViewModel = dogViewModel, state = state)
+
+        DogForm(showCamera = showCamera, state = state)
+
         Spacer(modifier = Modifier.weight(1f))
 
         Button(
@@ -49,14 +43,7 @@ fun DogAddScreen(
                 .fillMaxWidth(0.8f)
                 .padding(vertical = 16.dp),
             onClick = {
-                addDog(
-                    navigateBackToList,
-                    state.name,
-                    state.birthday,
-                    state.food,
-                    img.value,
-                    state.hobbies.toList()
-                )
+                addDog(navigateBackToList, state, dogViewModel)
             }, enabled = state.birthdayValid && state.nameValid
         ) {
             Text(text = "Add", fontSize = 24.sp)
@@ -66,15 +53,19 @@ fun DogAddScreen(
 
 fun addDog(
     navigateBackToList: () -> Unit,
-    name: String,
-    birthday: String,
-    food: String,
-    img: Uri,
-    hobbies: List<String>
+    state: DogFormState,
+    dogViewModel: DogViewModel
 ) {
     val newDog =
-        Dog(name = name, birth = birthday, favoriteFood = food, imgUri = img, hobbies = hobbies)
-    DogDAO.save(newDog)
+        Dog(
+            name = state.name,
+            birth = state.birthday,
+            favoriteFood = state.food,
+            imgUri = state.img.value,
+            hobbies = state.hobbies
+        )
+    DogDAO.add(newDog)
+    dogViewModel.emptyUri()
     navigateBackToList()
 }
 

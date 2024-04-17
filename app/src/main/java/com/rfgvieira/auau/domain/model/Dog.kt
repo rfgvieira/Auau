@@ -10,6 +10,6 @@ data class Dog(
     var imgDrawable : Int? = null,
     var imgUri : Uri? = null,
     var favoriteFood : String? = null,
-    var hobbies : List<String>? = null
+    var hobbies : List<String> = emptyList()
 )
 

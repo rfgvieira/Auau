@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,17 +35,18 @@ import coil.compose.AsyncImage
 import com.rfgvieira.auau.R
 import com.rfgvieira.auau.presentation.viewmodel.DogViewModel
 import com.rfgvieira.auau.utils.CameraUtils
+import com.rfgvieira.auau.utils.Constants
 import com.rfgvieira.auau.utils.EnumUtils
 
 class DogFormState(
     name: String = "",
     birthday: String = "",
     food: String = "",
-    hobbies: List<String> = listOf()
+    hobbies: List<String> = listOf(),
+    dogViewModel: DogViewModel = DogViewModel()
 ) {
     var name by mutableStateOf(name)
         private set
-
 
     var nameValid by mutableStateOf(name.isNotEmpty())
         private set
@@ -77,38 +77,31 @@ class DogFormState(
     var hobbies = hobbies.toMutableStateList()
         private set
 
-
+    var img = dogViewModel.uriImage
 }
-
 
 @Composable
 fun DogForm(
     showCamera: MutableState<Boolean>,
-    dogViewModel: DogViewModel,
     state: DogFormState = DogFormState()
 ) {
     val name = state.name
     val birthday = state.birthday
     val food = state.food
+    val img = state.img
+    val hobbies = state.hobbies
 
     val birthdayValid = state.birthdayValid
     val nameValid = state.nameValid
 
-    val img = dogViewModel.uriImage.observeAsState(Uri.EMPTY)
-
-    val hobbies = state.hobbies
-
     var clickImage by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val hobbiesList = listOf("Dig", "Walk", "Bark", "Play", "Sleep", "Pat")
+
 
     if (clickImage) {
         CameraUtils.GetImageFromCamera(LocalContext.current, showCamera)
         clickImage = false
     }
-
-
-
 
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -163,7 +156,7 @@ fun DogForm(
         modifier = Modifier.padding(vertical = 16.dp)
     ) { state.onFoodChanged(it) }
 
-    MultipleSelect("Hobbies", hobbiesList, Modifier) { item ->
+    MultipleSelect("Hobbies",  Constants.HOBBIES, Modifier) { item ->
         if (!hobbies.contains(item))
             hobbies.add(item)
         else
@@ -171,8 +164,6 @@ fun DogForm(
     }
 
     DisplayTagsEdit(hobbies, Modifier.padding(bottom = 12.dp))
-
-
 
     if (!(birthdayValid && nameValid)) {
         Text(
@@ -188,8 +179,6 @@ fun DogForm(
 @Composable
 fun DogFormPreview() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        DogForm(showCamera = remember {
-            mutableStateOf(false)
-        }, dogViewModel = DogViewModel())
+        DogForm(showCamera = remember { mutableStateOf(false) })
     }
 }
