@@ -42,7 +42,8 @@ fun DateInput(
         DatePickerDialog(onDismissRequest = { showDatePickerDialog = false }, confirmButton = {
             Button(onClick = {
                 datePickerState.selectedDateMillis?.let {
-                    onDatePicked(it.toDateFormat())
+                    val dayCorrect = it + 10800000 //Temporarily solution (-3 hour even on change of fuse   )
+                    onDatePicked(dayCorrect.toDateFormat())
                 }
                 focusManager.moveFocus(FocusDirection.Down)
                 showDatePickerDialog = false

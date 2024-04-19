@@ -7,16 +7,18 @@ import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class DateUtils {
     companion object {
 
         fun Long.toDateFormat(pattern: String = "dd/MM/yyyy"): String {
-            val date = Date(this)
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
             val formatter = SimpleDateFormat(pattern, Locale("pt-br"))
-            return formatter.format(date)
+            calendar.timeInMillis = this
+            formatter.timeZone = calendar.timeZone
+            return formatter.format(calendar.time)
         }
 
         fun String.toYear(): String {
