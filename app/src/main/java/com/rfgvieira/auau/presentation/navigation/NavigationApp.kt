@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rfgvieira.auau.domain.DogDAO
 import com.rfgvieira.auau.domain.model.Dog
+import com.rfgvieira.auau.presentation.screens.AboutScreen
 import com.rfgvieira.auau.presentation.screens.CameraView
 import com.rfgvieira.auau.presentation.screens.DogAddScreen
 import com.rfgvieira.auau.presentation.screens.DogDetailsScreen
@@ -29,10 +30,10 @@ fun NavigationApp(
     cameraExecutor : ExecutorService,
     handleImageCapture : (Uri) -> Unit,
     outPutDirectory : File,
-    onNavigateToList: () -> Unit,
-    onNavigateToAdd: () -> Unit,
-    onNavigateToDetails: () -> Unit,
-    onNavigateToCamera: () -> Unit,
+    enableAll: () -> Unit,
+    disableFAB: () -> Unit,
+    disableAll: () -> Unit,
+    disableTopBar: () -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -41,17 +42,17 @@ fun NavigationApp(
         exitTransition = { ExitTransition.None }
     ) {
         composable("doglist") {
-            onNavigateToList()
+            enableAll()
             DogListScreen(dogViewModel) { dog -> navController.navigate("dogdetails/${dog.id}") }
         }
         composable("dogadd") {
-            onNavigateToAdd()
+            disableFAB()
             DogAddScreen(showCamera, dogViewModel) {
                 navController.popBackStack("doglist", inclusive = false)
             }
         }
         composable("dogdetails/{dogId}") { backStack ->
-            DogInfo(onNavigateToDetails = onNavigateToDetails, backStack = backStack) { dog ->
+            DogInfo(onNavigateToDetails = disableAll, backStack = backStack) { dog ->
                 DogDetailsScreen(dog, dogViewModel, navigateToEdit = {
                     navController.navigate("dogedit/${dog.id}")
                 }) {
@@ -60,17 +61,14 @@ fun NavigationApp(
             }
         }
         composable("dogedit/{dogId}"){backStack ->
-            DogInfo(onNavigateToDetails = onNavigateToDetails, backStack = backStack) { dog ->
+            DogInfo(onNavigateToDetails = disableAll, backStack = backStack) { dog ->
                 DogEditScreen(dog, showCamera, dogViewModel){
                     navController.popBackStack()
                 }
             }
-
-
-
         }
         composable("camera") {
-            onNavigateToCamera()
+            disableTopBar()
             CameraView(
                 outputDirectory = outPutDirectory,
                 executor = cameraExecutor,
@@ -80,6 +78,10 @@ fun NavigationApp(
             ) {
                 navController.popBackStack("dogadd", false)
             }
+        }
+        composable("about") {
+            disableFAB()
+            AboutScreen()
         }
     }
 }

@@ -67,7 +67,9 @@ class MainActivity : ComponentActivity() {
                 AuauApp(
                     showFab = showFAB.value,
                     showTopBar = showTopBar.value,
-                    onFabClick = { navController.navigate("dogadd") }) {
+                    onFabClick = { navController.navigate("dogadd") },
+                    navigateToList = { navController.navigate("doglist")},
+                    navigateToAbout = {navController.navigate("about")}) {
                     NavigationApp(
                         navController = navController,
                         dogViewModel = dogViewModel,
@@ -75,18 +77,18 @@ class MainActivity : ComponentActivity() {
                         cameraExecutor = cameraExecutor,
                         outPutDirectory = outPutDirectory,
                         handleImageCapture = ::handleImageCapture,
-                        onNavigateToList = {
+                        enableAll = {
                             showFAB.value = true
                             showTopBar.value = true
                         },
-                        onNavigateToAdd = {
+                        disableFAB = {
                             showTopBar.value = true
                             showFAB.value = false
                         },
-                        onNavigateToCamera = {
+                        disableTopBar = {
                             showTopBar.value = false
                         },
-                        onNavigateToDetails = {
+                        disableAll = {
                             showFAB.value = false
                             showTopBar.value = false
                         })
@@ -115,11 +117,13 @@ fun AuauApp(
     showFab: Boolean,
     showTopBar: Boolean,
     onFabClick: () -> Unit = {},
-    content: @Composable () -> Unit
+    navigateToList: () -> Unit,
+    navigateToAbout: () -> Unit,
+    content: @Composable () -> Unit,
 ) {
 
     Scaffold(
-        topBar = { if (showTopBar) TopBarMain() },
+        topBar = { if (showTopBar) TopBarMain(navigateToAbout, navigateToList) },
         floatingActionButton = {
             if (showFab) {
                 FloatingActionButton(

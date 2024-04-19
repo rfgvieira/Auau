@@ -47,6 +47,8 @@ fun DogListScreen(viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        Spacer(modifier = Modifier.padding(4.dp))
+
         SearchBar(modifier = Modifier.fillMaxWidth(0.7f), onSearch = {
             searchText = it
 
@@ -96,7 +98,6 @@ fun DogListScreen(viewModel: DogViewModel, navigateToDetails: (Dog) -> Unit) {
         Spacer(modifier = Modifier.padding(16.dp))
     }
 
-
 }
 
 fun dogItemFilter(searchText: String, dogList: SnapshotStateList<Dog>,): SnapshotStateList<Dog> {
@@ -110,5 +111,4 @@ fun dogItemFilter(searchText: String, dogList: SnapshotStateList<Dog>,): Snapsho
 @Preview(showBackground = true)
 fun DogListPreview() {
     DogListScreen(viewModel(), {})
-
 }
