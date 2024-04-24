@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.rfgvieira.auau.presentation.components.TopBarMain
 import com.rfgvieira.auau.presentation.navigation.NavigationApp
 import com.rfgvieira.auau.presentation.theme.AuauTheme
@@ -68,8 +69,12 @@ class MainActivity : ComponentActivity() {
                     showFab = showFAB.value,
                     showTopBar = showTopBar.value,
                     onFabClick = { navController.navigate("dogadd") },
-                    navigateToList = { navController.navigate("doglist")},
-                    navigateToAbout = {navController.navigate("about")}) {
+                    navigateToList = { navController.navigate("doglist") },
+                    navigateToAbout = {
+                        navController.navigate("about", navOptions = navOptions {
+                            launchSingleTop = true
+                        })
+                    }) {
                     NavigationApp(
                         navController = navController,
                         dogViewModel = dogViewModel,
